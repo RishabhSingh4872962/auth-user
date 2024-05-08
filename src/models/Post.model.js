@@ -3,6 +3,12 @@
 import mongoose from "mongoose";
 const postSchema = new mongoose.Schema(
   {
+    postAuthor:{
+      type:mongoose.Schema.Types.ObjectId,
+      ref:"User",
+      required:true,
+      select:false
+    },
     postName: {
       type: String,
       required: true,
@@ -14,31 +20,36 @@ const postSchema = new mongoose.Schema(
       type: String,
     },
     likes: {
-      likeCount: Number,
-      default: 0,
-      required: true,
+      likeCount: {
+        type: Number,
+        default: 0,
+        required: true,
+      },
       likeBy: [
         {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
+          required: true,
         },
       ],
     },
-    comments: {
-      comment: String,
-      commentBy: [
-        {
+    comments: [
+      {
+        comment: {
+          type: String,
+          required: true,
+        },
+        commentBy: {
           type: mongoose.Schema.Types.ObjectId,
           ref: "User",
+          required: true,
         },
-      ],
-    },
+      },
+    ],
   },
   {
     timestamps: true,
   }
 );
 
-export const User = mongoose.model("User", postSchema);
-
-
+export const Post = mongoose.model("Post", postSchema);

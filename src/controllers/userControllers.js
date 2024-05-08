@@ -1,16 +1,21 @@
 import { User } from "../models/User.model.js";
 
-import jwt from "jsonwebtoken";
-
 import bcrypt from "bcrypt";
 import createHttpError from "http-errors";
 
 import crypto from "crypto";
 import { transporter } from "../helper/emailSender.js";
+import { generateToken } from "../helper/generateToken.js";
 
 // Register route
 export const userRegister = async (req, res, next) => {
   const { username, email, password } = req.body;
+
+  if (username == undefined || email == undefined || password == undefined) {
+    return res
+      .status(401)
+      .send({ success: false, msg: "Enter the valid credensials" });
+  }
 
   const existUser = await User.findOne({ $or: [{ email }, { username }] });
 
@@ -46,19 +51,19 @@ export const userLogin = async (req, res, next) => {
   const { username, password } = req.body;
 
   // Check if user exists
-  const user = await User.findOne({ username });
+  const user = await User.findOne({ username }).select("+password");
   if (!user) {
-    return res.status(400).json({ message: "Invalid username or password" });
+    return next(createHttpError(400, "Invalid username or password"));
   }
 
   // Compare password
   const passwordMatch = await bcrypt.compare(password, user.password);
   if (!passwordMatch) {
-    return res.status(400).json({ message: "Invalid username or password" });
+    return next(createHttpError(400, "Invalid username or password"));
   }
 
   // Generate JWT token
-  const token = generateToken({ id: newUser._id });
+  const token = generateToken({ id: user._id });
 
   if (!token) {
     return next(createHttpError(500, "Internal server Error"));
@@ -68,7 +73,7 @@ export const userLogin = async (req, res, next) => {
     .cookie("token", token, {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 3),
     })
-    .json({ token });
+    .json({ success: true, message: "User login Successfully" });
 };
 
 // Forgot Password route
@@ -91,7 +96,7 @@ export const userForget = async (req, res, next) => {
 
   user.resetToken = updateResetToken;
 
-  user.resetTokenExpire = Date.now() + 90000;
+  user.resetTokenExpire = Date.now() + 900000;
 
   // Send password reset email
   const mailOptions = {
@@ -105,6 +110,7 @@ export const userForget = async (req, res, next) => {
     if (error) {
       return next(createHttpError(500, "Error sending email"));
     }
+
     await user.save();
     return res.json({ message: "Password reset email sent", token });
   });
@@ -114,7 +120,7 @@ export const userForget = async (req, res, next) => {
 export const userResetPassword = async (req, res, next) => {
   const { newPassword, confirmPassword } = req.body;
 
-  const { resetToken } = req.params;
+  const { token } = req.params;
 
   if (
     newPassword == undefined ||
@@ -128,7 +134,7 @@ export const userResetPassword = async (req, res, next) => {
 
   const updateResetToken = crypto
     .createHash("sha256")
-    .update(resetToken)
+    .update(token)
     .digest("hex");
 
   const user = await User.findOne({
@@ -145,7 +151,8 @@ export const userResetPassword = async (req, res, next) => {
   }
 
   user.password = newPassword;
-
+  user.resetToken = undefined;
+  user.resetTokenExpire = undefined;
   await user.save();
 
   return res.json({ message: "Password reset successfully" });
