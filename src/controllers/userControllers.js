@@ -43,7 +43,7 @@ export const userRegister = async (req, res, next) => {
     .cookie("token", token, {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 3),
     })
-    .json({ message: "User registered successfully" });
+    .json({success:true, message: "User registered successfully" });
 };
 
 // Login route
@@ -72,8 +72,8 @@ export const userLogin = async (req, res, next) => {
   return res
     .cookie("token", token, {
       expires: new Date(Date.now() + 24 * 60 * 60 * 1000 * 3),
-    })
-    .json({ success: true, message: "User login Successfully" });
+    }).status(200)
+    .send({ success: true, message: "User login Successfully" });
 };
 
 // Forgot Password route
@@ -112,7 +112,7 @@ export const userForget = async (req, res, next) => {
     }
 
     await user.save();
-    return res.json({ message: "Password reset email sent", token });
+    return res.send(200).json({ success:true,message: "Password reset email sent", token });
   });
 };
 
@@ -155,5 +155,10 @@ export const userResetPassword = async (req, res, next) => {
   user.resetTokenExpire = undefined;
   await user.save();
 
-  return res.json({ message: "Password reset successfully" });
+  return res.status(201).send({ success:true, message: "Password reset successfully" });
 };
+
+
+export const logout=async(req,res,next)=>{
+  return res.status(200).clearCookie("token").send({success:true,message:"User Logout Successfully"})
+}
