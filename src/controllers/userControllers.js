@@ -48,10 +48,12 @@ export const userRegister = async (req, res, next) => {
 
 // Login route
 export const userLogin = async (req, res, next) => {
-  const { username, password } = req.body;
+  const { username, password ,email} = req.body;
 
   // Check if user exists
-  const user = await User.findOne({ username }).select("+password");
+  const user = await User.findOne({
+    $or:[{username},{email}]
+  }).select("+password");
   if (!user) {
     return next(createHttpError(400, "Invalid username or password"));
   }

@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n     \"username\": \"Sh_rish\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n     \"username\": \"Shrish\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -57,7 +57,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rs487296@gmail.com\",\r\n    \"username\": \"sh_rish\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"rs245@gmail.com\",\r\n    \"username\": \"Shrish\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -83,7 +83,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"newPassword\": \"123456\",\r\n   \"confirmPassword\":\"123456\"\r\n}",
+							"raw": "{\r\n    \"newPassword\": \"654321\",\r\n   \"confirmPassword\":\"654321\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -91,13 +91,13 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}user/resetPassword/31549b917f5c9ea93c9666e16bb8ef4738fab5e026dc2d4c11bf67d0263cfb0c",
+							"raw": "{{URL}}user/resetPassword/9077ec21f17f3c96b58a33f7e4eeffb5dcd20e952a194d05246b54f66bc07303",
 							"host": [
 								"{{URL}}user"
 							],
 							"path": [
 								"resetPassword",
-								"31549b917f5c9ea93c9666e16bb8ef4738fab5e026dc2d4c11bf67d0263cfb0c"
+								"9077ec21f17f3c96b58a33f7e4eeffb5dcd20e952a194d05246b54f66bc07303"
 							],
 							"query": [
 								{
@@ -117,7 +117,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"rs4872962@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"rs245@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -135,6 +135,23 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "user logout",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}user/logout",
+							"host": [
+								"{{URL}}user"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -148,7 +165,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"postName\": \"post 1\",\r\n    \"postImageUrl\": \"http://post.com/123\",\r\n    \"postDescription\": \"this is my post 1\"\r\n}",
+							"raw": "{\r\n    \"postName\": \"post \",\r\n    \"postImageUrl\": \"http://post.com/1\",\r\n    \"postDescription\": \"this is my post\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -173,12 +190,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}post/663bc509f9909d7bed4ef8fa",
+							"raw": "{{URL}}post/663c937e8beec04410792384",
 							"host": [
 								"{{URL}}post"
 							],
 							"path": [
-								"663bc509f9909d7bed4ef8fa"
+								"663c937e8beec04410792384"
 							]
 						}
 					},
@@ -190,12 +207,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}post/663bc4f1f9909d7bed4ef8f7",
+							"raw": "{{URL}}post/663c934b8beec04410792381",
 							"host": [
 								"{{URL}}post"
 							],
 							"path": [
-								"663bc4f1f9909d7bed4ef8f7"
+								"663c934b8beec04410792381"
 							]
 						}
 					},
@@ -208,7 +225,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"postImageUrl\": \"http://post.com/245\"\r\n}",
+							"raw": "{\r\n    \"postImageUrl\": \"http://postcoin.co/5555\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -216,12 +233,12 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}post/663bc54ff9909d7bed4ef900",
+							"raw": "{{URL}}post/663c934b8beec04410792381",
 							"host": [
 								"{{URL}}post"
 							],
 							"path": [
-								"663bc54ff9909d7bed4ef900"
+								"663c934b8beec04410792381"
 							]
 						}
 					},
@@ -238,13 +255,13 @@
 						"method": "POST",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}post/like/663bc509f9909d7bed4ef8fa",
+							"raw": "{{URL}}post/like/663c5d08492d715ade704883",
 							"host": [
 								"{{URL}}post"
 							],
 							"path": [
 								"like",
-								"663bc509f9909d7bed4ef8fa"
+								"663c5d08492d715ade704883"
 							]
 						}
 					},
@@ -257,7 +274,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"comment\":\"awosome\"\r\n}",
+							"raw": "{\r\n    \"comment\":\"good looking\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -265,32 +282,32 @@
 							}
 						},
 						"url": {
-							"raw": "{{URL}}post/comment/663bc542f9909d7bed4ef8fd",
+							"raw": "{{URL}}post/comment/663c5d08492d715ade704883",
 							"host": [
 								"{{URL}}post"
 							],
 							"path": [
 								"comment",
-								"663bc542f9909d7bed4ef8fd"
+								"663c5d08492d715ade704883"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "update comment to post",
+					"name": "delete comment to post",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "{{URL}}post/comment/663ba67f1cdf0120d28d2d15/663bb1cd481f8cb556ca2e69",
+							"raw": "{{URL}}post/comment/663c5d08492d715ade704883/663c5da8492d715ade70489c",
 							"host": [
 								"{{URL}}post"
 							],
 							"path": [
 								"comment",
-								"663ba67f1cdf0120d28d2d15",
-								"663bb1cd481f8cb556ca2e69"
+								"663c5d08492d715ade704883",
+								"663c5da8492d715ade70489c"
 							]
 						}
 					},

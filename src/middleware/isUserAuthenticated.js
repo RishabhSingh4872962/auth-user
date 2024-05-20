@@ -12,13 +12,12 @@ export const isUserAuthenticated = async (req, res, next) => {
     }
 
     const userPayload = await verifyToken(token);
-
+    
     if (!userPayload) {
       return next(createHttpError(400, "Make a login"));
     }
 
     const user = await User.findOne({ _id: userPayload.id });
-
     if (!user) {
       res.clearCookie("token");
       return next(createHttpError(400, "Make a login"));
@@ -33,5 +32,5 @@ export const isUserAuthenticated = async (req, res, next) => {
 };
 
 async function verifyToken(token) {
-  return await jwt.verify(token, _config.JWT_SECRET_KEY);
+  return await jwt.verify(token, _config.JWT_SECRET_KEY,{complete:true}).payload;
 }

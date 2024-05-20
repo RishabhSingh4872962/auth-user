@@ -18,7 +18,7 @@ app.use(helmet());
 app.use("/api/v1/user", userRouter);
 
 
-// User Post Routes  // Protected Route
+// User Post Routes  
 app.use("/api/v1/post",postRouter)
 
 app.use(globalErrorHandler);

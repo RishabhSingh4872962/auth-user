@@ -29,7 +29,7 @@ export const createPost = async (req, res, next) => {
 export const getPost = async (req, res, next) => {
   const { id } = req.params;
 
-  if (!mongoose.isValidObjectId(id)) {
+  if (!id || !mongoose.isValidObjectId(id)) {
     return next(createHttpError(400, "Enter the valid Id"));
   }
 
@@ -50,7 +50,7 @@ export const getPost = async (req, res, next) => {
 export const updatePost = async (req, res, next) => {
   const { id } = req.params;
 
-  if (!mongoose.isValidObjectId(id)) {
+  if (!id || !mongoose.isValidObjectId(id)) {
     return next(createHttpError(400, "Enter the valid Id"));
   }
 
@@ -83,7 +83,7 @@ export const deletePost = async (req, res, next) => {
   const { id } = req.params;
   const userId = req.userId;
 
-  if (!mongoose.isValidObjectId(id)) {
+  if (!id || !mongoose.isValidObjectId(id)) {
     return next(createHttpError(400, "Enter the valid Id"));
   }
 
@@ -104,7 +104,7 @@ export const likePost = async (req, res, next) => {
   const { id } = req.params;
   const userId = req.userId;
 
-  if (!mongoose.isValidObjectId(id)) {
+  if (!id || !mongoose.isValidObjectId(id)) {
     return next(createHttpError(400, "Enter the valid Id"));
   }
 
@@ -176,24 +176,22 @@ export const addComment = async (req, res, next) => {
 // };
 
 export const delComment = async (req, res, next) => {
-  const { postId,commentId } = req.params;
-  const userId = req.userId;
+  const { postId, commentId } = req.params;
 
   const post = await Post.findOne({
-    _id:postId,
+    _id: postId,
   });
   if (!post) {
     return next(createHttpError(404, "Post not Found"));
   }
- const postIndex=post.comments.findIndex(({_id})=>_id==commentId);
+  const postIndex = post.comments.findIndex(({ _id }) => _id == commentId);
 
- if (postIndex<0) {
-  return next(createHttpError(404,"Comment not found"))
- }
- post.comments.splice(postIndex,1);
+  if (postIndex < 0) {
+    return next(createHttpError(404, "Comment not found"));
+  }
+  post.comments.splice(postIndex, 1);
 
-
- await post.save();
+  await post.save();
   return res
     .status(201)
     .send({ success: true, msg: "User deleted the comment" });
